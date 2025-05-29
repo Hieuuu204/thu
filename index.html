@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lá Thư Gửi Em Yêu</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #ffe6f0;
+      font-family: 'Segoe UI', sans-serif;
+      color: #d6336c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      flex-direction: column;
+      padding: 40px 20px;
+    }
+
+    .envelope {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background: pink;
+      border-radius: 8px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffb6c1;
+      clip-path: polygon(0 0, 50% 50%, 100% 0);
+      transform-origin: top;
+      transition: transform 1s ease;
+      z-index: 3;
+    }
+
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+    }
+
+    .label {
+      position: absolute;
+      top: 8px;
+      left: 10px;
+      font-weight: bold;
+      font-size: 16px;
+      color: #d6336c;
+      z-index: 4;
+      transition: opacity 0.5s ease;
+    }
+
+    .heart-center {
+      position: absolute;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 30px;
+      z-index: 4;
+      transition: opacity 0.5s ease;
+    }
+
+    .envelope.open .label,
+    .envelope.open .heart-center {
+      opacity: 0;
+    }
+
+    .letter {
+      position: absolute;
+      width: 90%;
+      height: 75%;
+      background: white;
+      top: 12%;
+      left: 5%;
+      padding: 15px;
+      box-sizing: border-box;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease 0.5s;
+      text-align: center;
+      color: #d6336c;
+      font-size: 16px;
+      z-index: 2;
+      border-radius: 8px;
+      line-height: 1.4;
+      overflow: auto;
+    }
+
+    .envelope.open .letter {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hint {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #888;
+    }
+
+    .heart-float {
+      position: absolute;
+      font-size: 18px;
+      color: #ff4d6d;
+      animation: floatUp 5s linear infinite;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-200px) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="envelope" onclick="openEnvelope(this)">
+    <div class="flap"></div>
+    <div class="label">Gửi em yêu</div>
+    <div class="heart-center">💗</div>
+    <div class="letter">
+      Gửi bé iu cụa anh, hum nay ngày 1/6, anh chúc bé lun là em bé trong lòng anh, iu anh nhìu hơn. Anh yêu bé nhìu lắmmm ❤️💖💞
+    </div>
+  </div>
+  <div class="hint">Chạm để mở thư</div>
+
+  <script>
+    function openEnvelope(el) {
+      el.classList.add("open");
+    }
+
+    function createFloatingHearts() {
+      const heart = document.createElement("div");
+      heart.className = "heart-float";
+      heart.textContent = "💗";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.top = "100%";
+      heart.style.fontSize = (Math.random() * 10 + 16) + "px";
+      heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    setInterval(createFloatingHearts, 500);
+  </script>
+</body>
+</html>
